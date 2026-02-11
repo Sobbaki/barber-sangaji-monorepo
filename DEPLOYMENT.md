@@ -124,6 +124,16 @@ Once all three are deployed, you can restrict the Backend to only allow requests
     ```
 4.  Commit and push changes to the **Admin Repository**. Vercel will redeploy the Backend automatically.
 
+## Troubleshooting
+
+### 404 Not Found (Main Website)
+If your main website loads but shows a "Not Found" or empty page:
+1.  Check `barbersangaji/src/main.tsx` and `App.tsx`.
+2.  Ensure `basepath` is set to `"/"` (not `"/sangaji"`).
+3.  Ensure `vite.config.ts` has `base: '/'`.
+
+*Note: The project was originally set up for GitHub Pages (subfolder). For Vercel, it must use the Root path (`/`).*
+
 ## Local Development
 
 Since you have two separate repositories in one workspace, you can still run them together locally.

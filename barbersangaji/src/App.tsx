@@ -4,7 +4,7 @@ import { routeTree } from './routeTree.gen.ts'
 // Tambahkan properti basepath di sini:
 const router = createRouter({ 
   routeTree,
-  basepath: "/sangaji" // <--- WAJIB DITAMBAHKAN
+  basepath: "/"
 })
 
 declare module '@tanstack/react-router' {

@@ -8,7 +8,7 @@ import './theme.css'
 // --- PERBAIKAN DI SINI ---
 const router = createRouter({
   routeTree,
-  basepath: "/sangaji" // <--- Tambahkan baris ini
+  basepath: "/"
 })
 
 declare module '@tanstack/react-router' {
