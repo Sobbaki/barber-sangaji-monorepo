@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(0, 84.2%, 60.2%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+
+  /* Barbershop Theme Colors */
+  --barbershop-red: hsl(0, 84.2%, 60.2%);
+  --barbershop-red-dark: hsl(0, 62.8%, 30.6%);
+  --barbershop-bg: hsl(0, 0%, 5.9%);
+  --barbershop-surface: hsl(0, 0%, 10.2%);
+  --barbershop-border: hsl(0, 0%, 17.6%);
+}
+
+.dark {
+  --background: hsl(0, 0%, 5.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(0, 0%, 10.2%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(0, 0%, 10.2%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(0, 0%, 10.2%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(0, 0%, 17.6%);
+  --input: hsl(0, 0%, 17.6%);
+  --primary: hsl(0, 84.2%, 60.2%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(0, 0%, 17.6%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(0, 0%, 17.6%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-barbershop-bg text-foreground;
+  }
+}
+
+@layer utilities {
+  .bg-barbershop-bg {
+    background-color: var(--barbershop-bg);
+  }
+  
+  .bg-barbershop-surface {
+    background-color: var(--barbershop-surface);
+  }
+  
+  .bg-barbershop-red {
+    background-color: var(--barbershop-red);
+  }
+  
+  .bg-barbershop-red-dark {
+    background-color: var(--barbershop-red-dark);
+  }
+  
+  .border-barbershop-border {
+    border-color: var(--barbershop-border);
+  }
+  
+  .text-barbershop-red {
+    color: var(--barbershop-red);
+  }
+  
+  .hover\:bg-barbershop-red-dark:hover {
+    background-color: var(--barbershop-red-dark);
+  }
+}

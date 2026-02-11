@@ -1,0 +1,381 @@
+openapi: 3.0.3
+info:
+  title: BarberSangaji Backend API
+  version: "1.1.0"
+  description: >
+    API untuk BarberSangaji — autentikasi, upload file menggunakan UploadThing, konten CRUD, dan testimonial.
+    Mendukung upload file langsung lewat `multipart/form-data` pada endpoint konten & testimonial.
+
+servers:
+  - url: http://localhost:3000/api
+    description: Local development
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+      required: [id, username]
+
+    AuthRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required: [username, password]
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+
+    UploadResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        path:
+          type: string
+        url:
+          type: string
+
+    Content:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+          enum: [foto, video]
+        file_name:
+          type: string
+        file_path:
+          type: string
+        created_by:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+      required: [id, title, description, category, file_name, file_path]
+
+    Testimonial:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        profession:
+          type: string
+        content:
+          type: string
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        photo_path:
+          type: string
+        created_by:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+      required: [id, name, profession, content, rating]
+
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource UUID
+
+paths:
+  /auth/register:
+    post:
+      summary: Register new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        '201':
+          description: Created user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+        '409':
+          description: Username already taken
+
+  /auth/login:
+    post:
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        '200':
+          description: Login success - returns JWT token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Invalid credentials
+
+  /blob/upload:
+    post:
+      summary: Upload file melalui UploadThing
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: File berhasil diupload via UploadThing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+        '400':
+          description: file is required
+
+  /content:
+    get:
+      summary: List konten (foto/video)
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+            enum: [foto, video]
+      responses:
+        '200':
+          description: Daftar konten
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Content'
+
+    post:
+      summary: Upload dan buat konten baru
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                  enum: [foto, video]
+                file:
+                  type: string
+                  format: binary
+              required: [title, description, category, file]
+      responses:
+        '201':
+          description: Konten berhasil dibuat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Content'
+        '400':
+          description: Missing required fields
+
+  /content/{id}:
+    get:
+      summary: Get konten berdasarkan ID
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200':
+          description: Data konten
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Content'
+        '404':
+          description: Not found
+
+    put:
+      summary: Update konten (bisa ganti file)
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title: { type: string }
+                description: { type: string }
+                category: { type: string, enum: [foto, video] }
+                file: { type: string, format: binary }
+      responses:
+        '200':
+          description: Konten berhasil diupdate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Content'
+        '404':
+          description: Not found
+
+    delete:
+      summary: Hapus konten
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200':
+          description: Deleted
+        '404':
+          description: Not found
+
+  /testimonials:
+    get:
+      summary: List semua testimonial
+      responses:
+        '200':
+          description: Array of testimonials
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Testimonial'
+
+    post:
+      summary: Upload dan buat testimonial
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                profession: { type: string }
+                content: { type: string }
+                rating: { type: integer, minimum: 1, maximum: 5 }
+                file:
+                  type: string
+                  format: binary
+              required: [name, profession, content, rating]
+      responses:
+        '201':
+          description: Testimonial berhasil dibuat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Testimonial'
+
+  /testimonials/{id}:
+    get:
+      summary: Ambil testimonial berdasarkan ID
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200':
+          description: Testimonial ditemukan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Testimonial'
+        '404':
+          description: Not found
+
+    put:
+      summary: Update testimonial (bisa ubah foto)
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                profession: { type: string }
+                content: { type: string }
+                rating: { type: integer, minimum: 1, maximum: 5 }
+                file: { type: string, format: binary }
+      responses:
+        '200':
+          description: Testimonial berhasil diupdate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Testimonial'
+        '404':
+          description: Not found
+
+    delete:
+      summary: Hapus testimonial
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200':
+          description: Deleted
+        '404':
+          description: Not found

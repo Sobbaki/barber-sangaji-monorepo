@@ -1,0 +1,15 @@
+{
+  "name": "barber-sangaji-monorepo",
+  "version": "1.0.0",
+  "description": "Root script to manage Barber Sangaji project components",
+  "scripts": {
+    "install:all": "npm install && cd admin/Backend && npm install && cd ../Frontend && npm install && cd ../../barbersangaji && npm install",
+    "dev:backend": "cd admin/Backend && npm run dev",
+    "dev:admin": "cd admin/Frontend && npm run dev",
+    "dev:main": "cd barbersangaji && npm run dev",
+    "build:all": "cd admin/Frontend && npm run build && cd ../../barbersangaji && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

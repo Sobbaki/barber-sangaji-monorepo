@@ -1,0 +1,269 @@
+:root {
+  /* Default Dark Mode Variables (matching public/index.css defaults) */
+  --bs-body-bg: #000000;
+  --bs-body-color: #6c7293;
+  --secondary-rgb: 25, 28, 36;
+  /* #191c24 */
+}
+
+body.theme-light {
+  background-color: #ffffff !important;
+  color: #555555 !important;
+}
+
+/* Override Bootstrap Backgrounds in Light Mode */
+body.theme-light .bg-secondary {
+  background-color: #f0f0f0 !important;
+  color: #212529 !important;
+}
+
+/* Ensure headings are dark in light mode */
+body.theme-light h1,
+body.theme-light h2,
+body.theme-light h3,
+body.theme-light h4,
+body.theme-light h5,
+body.theme-light h6,
+body.theme-light .text-uppercase {
+  color: #1a1a1a;
+}
+
+/* Fix for text-white elements that might be overridden by the above rule */
+/* Hapus override paksa putih agar elemen yang seharusnya gelap di light mode bisa menyesuaikan, 
+   atau gunakan text-dark jika perlu. Untuk Hero, dia punya container sendiri. */
+/* body.theme-light .text-white { color: #ffffff !important; } */
+
+/* Keep primary text color as is, or adjust if needed */
+body.theme-light .text-primary {
+  color: #eb1616 !important;
+}
+
+/* Specific component overrides for Light Mode */
+body.theme-light .breadcrumb-item+.breadcrumb-item::before {
+  color: #555555;
+}
+
+/* Service Items, Team Items etc might need border or shadow in light mode to stand out if background is white */
+body.theme-light .service-item,
+body.theme-light .team-item,
+body.theme-light .price-item {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar overrides */
+body.theme-light .navbar-light .navbar-nav .nav-link {
+  color: #1a1a1a;
+}
+
+body.theme-light .navbar-light .navbar-nav .nav-link:hover,
+body.theme-light .navbar-light .navbar-nav .nav-link.active {
+  color: #eb1616;
+}
+
+/* Transparent Navbar Styles (When at top) */
+.navbar-transparent {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.navbar-transparent .navbar-nav .nav-link {
+  color: #ffffff !important;
+}
+
+.navbar-transparent .navbar-nav .nav-link:hover,
+.navbar-transparent .navbar-nav .nav-link.active {
+  color: #eb1616 !important;
+}
+
+.navbar-transparent .btn-link {
+  color: #ffffff !important;
+}
+
+/* Navbar Scrolled Styles */
+.navbar-scrolled {
+  /* Let inline styles or other classes handle bg color */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
+   APPOINTMENT LIGHT MODE FIXES
+   ============================================ */
+
+/* Main appointment container */
+body.theme-light .appointment {
+  background-color: #ffffff;
+}
+
+/* Secondary background elements in appointment */
+body.theme-light .appointment .bg-secondary,
+body.theme-light .container-appointment .bg-secondary,
+body.theme-light .container-appointment>.bg-secondary {
+  background-color: #f8f9fa !important;
+  color: #212529 !important;
+  border: 1px solid #e9ecef;
+}
+
+/* Light subtle backgrounds */
+body.theme-light .appointment .bg-light-subtle,
+body.theme-light .container-appointment .bg-light-subtle {
+  background-color: #f1f3f5 !important;
+  color: #212529 !important;
+}
+
+/* Fix text-white in appointment to be dark in light mode */
+body.theme-light .appointment .text-white,
+body.theme-light .container-appointment .text-white,
+body.theme-light .appointment-item .text-white,
+body.theme-light .container-appointment p.text-white {
+  color: #1a1a1a !important;
+  font-weight: 500;
+}
+
+/* Card service text */
+body.theme-light .appointment .card-title,
+body.theme-light .appointment .card-text {
+  color: #1a1a1a;
+}
+
+body.theme-light .appointment .card-text.text-muted {
+  color: #6c757d !important;
+}
+
+/* Barber cards */
+body.theme-light .appointment-barber-card {
+  background-color: #f8f9fa !important;
+  border: 1px solid #e9ecef;
+}
+
+body.theme-light .appointment-barber-card h5 {
+  color: #1a1a1a !important;
+}
+
+body.theme-light .appointment-barber-card p {
+  color: #444444 !important;
+}
+
+/* Detail Appointment sidebar labels and text */
+body.theme-light .container-appointment h5,
+body.theme-light .container-appointment p {
+  color: #212529 !important;
+}
+
+/* Sidebar specifically: smaller labels should be slightly lighter but still readable */
+body.theme-light .container-appointment .bg-secondary p[style*="font-size: 0.8rem"] {
+  color: #555555 !important;
+  font-weight: 600;
+}
+
+/* Form inputs */
+body.theme-light .appointment .form-control {
+  background-color: #ffffff !important;
+  color: #212529 !important;
+  border: 1px solid #dee2e6 !important;
+  padding: 0.6rem 1rem;
+}
+
+body.theme-light .appointment .form-label {
+  color: #212529 !important;
+  font-weight: 600;
+}
+
+/* Extras checkboxes */
+body.theme-light .appointment h6 {
+  color: #1a1a1a !important;
+  font-weight: 600;
+}
+
+/* Appointment item cards on main page */
+body.theme-light .appointment-item {
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f3f5;
+}
+
+body.theme-light .appointment-item h3 {
+  color: #1a1a1a !important;
+}
+
+body.theme-light .appointment-item p {
+  color: #555555 !important;
+}
+
+/* Keep primary color visible */
+body.theme-light .appointment .text-primary,
+body.theme-light .appointment-item .text-primary {
+  color: #eb1616 !important;
+  font-weight: 600;
+}
+
+/* Keep success color for badges */
+body.theme-light .appointment .text-success {
+  color: #198754 !important;
+  font-weight: 700;
+}
+
+/* Button back styling */
+body.theme-light .appointment .button-back {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6 !important;
+  color: #212529 !important;
+}
+
+body.theme-light .appointment .button-back:hover {
+  background-color: #f8f9fa;
+  border-color: #ced4da !important;
+}
+
+/* Week navigation buttons in Light Mode */
+body.theme-light .btn-week-nav {
+  background-color: #eb1616 !important;
+  color: #ffffff !important;
+  border-color: #eb1616 !important;
+}
+
+body.theme-light .btn-week-nav:hover {
+  background-color: #c91010 !important;
+  border-color: #c91010 !important;
+}
+
+/* Icons in sidebar - much darker for contrast */
+body.theme-light .container-appointment i {
+  color: #495057 !important;
+}
+
+/* Border colors */
+body.theme-light .container-appointment .border-bottom {
+  border-color: #e9ecef !important;
+}
+
+/* Total Price highlight */
+body.theme-light .container-appointment .h4.fw-bold {
+  color: #000000 !important;
+}
+
+/* Placeholder contrast */
+body.theme-light ::placeholder {
+  color: #adb5bd !important;
+  opacity: 1;
+  /* Firefox */
+}
+
+body.theme-light :-ms-input-placeholder {
+  color: #adb5bd !important;
+}
+
+body.theme-light ::-ms-input-placeholder {
+  color: #adb5bd !important;
+}
+
+/* Spinner background in Light Mode */
+body.theme-light #spinner {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Navbar shadow refinement in Light Mode */
+body.theme-light .navbar-scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}
